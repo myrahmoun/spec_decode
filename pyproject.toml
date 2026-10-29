@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecospec"
+version = "0.1.0"
+description = "Reproduction of EcoSpec: cost-aware speculative decoding for MoE models"
+requires-python = ">=3.11"
+# Lower bounds = versions tested during development. Exact pins for real runs
+# live in requirements.lock, generated on EC2 by setup/bootstrap.sh.
+dependencies = [
+    "torch>=2.15",
+    "transformers>=5.22",
+    "numpy>=2.5",
+    "datasets>=5.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.2"]
+# Needed for gpt-oss MXFP4 on CUDA; without them transformers silently
+# dequantizes to bf16 (~40 GB), which does not fit on a 24 GB A10G.
+gpu = ["accelerate", "kernels"]
+
+[tool.setuptools]
+packages = ["ecospec"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

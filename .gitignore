@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+hf_cache/
+traces/
+checkpoints/
+*.pt
+*.safetensors
+.env
+*.pem
+*.egg-info/
